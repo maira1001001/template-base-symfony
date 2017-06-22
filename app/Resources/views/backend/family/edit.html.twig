@@ -1,0 +1,27 @@
+{% extends 'backend/base.html.twig' %}
+
+{% block section %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Familia
+      <small>Editar</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li class="active">Familia</li>
+    </ol>
+  </section>
+  <div class="content">  
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <div class="box-footer">
+            <a class="btn btn-default" href="{{ path('family_index') }}"><span class="glyphicon glyphicon-chevron-left"></span> Volver</a>
+            <button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+        </div>
+    {{ form_end(edit_form) }}
+  </div>
+</div>     
+{% endblock %}

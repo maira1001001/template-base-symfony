@@ -1,0 +1,63 @@
+.ingress-text{
+	color: #00AA00;
+}
+
+.egress-text{
+	color: #AA0000;
+}
+
+#products{
+	width: 100%!important;
+}
+
+.content-wrapper table{
+	width: 100%;
+}
+
+.product-item{
+	cursor:pointer;
+}
+
+#product-list{
+	width:50%;
+	background-color: rgba(0,0,0,0.1);
+	margin:1em;
+}
+
+#product-list th{
+	padding-top: 1em;
+}
+
+#product-list td{
+	padding-left: 1em;
+}
+
+.glyphicon-fullscreen{
+	margin-right: 1em;
+	margin-top: 1em;
+	cursor: pointer;
+}
+
+.fullscreen{
+    position: absolute;
+    background: #FFF;
+    width: 80%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    margin: 0;
+    height: 1200px;
+    width: 100%;
+}
+
+#payment{
+	width: 150px!important;
+}
+
+#turned{
+	width: 150px!important;
+}
+
+#products_list{
+	padding-bottom: 1em;
+}

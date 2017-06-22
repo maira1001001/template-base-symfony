@@ -1,0 +1,119 @@
+{% extends 'backend/base.html.twig' %}
+
+{% block stylesheets %}
+  {{parent()}}
+  <link rel="stylesheet" href="{{ app.request.basepath }}/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+{% endblock %}
+
+{% block javascripts %}
+  {{parent()}}
+  <script src="{{ app.request.basepath }}/lib/moment.js/moment-with-locales.js"></script>
+  <script src="{{ app.request.basepath }}/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+  <script src="{{ app.request.basepath }}/js/backend/cash.js"></script>
+{% endblock %}
+
+{% block section %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Caja
+      <small>Editar</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li class="active">Caja</li>
+    </ol>
+  </section>
+  <div class="content">
+    {{ form_start(edit_form) }}
+
+        <div class="form-group{% if (edit_form.datetime.vars.errors|length > 0 or edit_form.datetime.vars.errors|length > 0) %} has-error{% endif %}">
+            {{ form_label(edit_form.datetime) }}
+            <div class='input-group date'>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                {{ form_widget(edit_form.datetime, {"attr": {"placeholder": "Fecha actual"}}) }}
+            </div>
+            <div class="help-block with-errors">
+                {{ form_errors(edit_form.datetime) }}
+            </div>
+        </div>
+
+        <div class="form-group{% if edit_form.comments.vars.errors|length > 0 %} has-error{% endif %}">
+          {{ form_label(edit_form.comments) }}
+          {{ form_widget(edit_form.comments) }}
+          <div class="help-block with-errors">
+              {{ form_errors(edit_form.comments) }}
+          </div>
+        </div>
+
+        <div class="form-group{% if edit_form.paymentType.vars.errors|length > 0 %} has-error{% endif %}">
+          {{ form_label(edit_form.paymentType) }}
+          {{ form_widget(edit_form.paymentType) }}
+          <div class="help-block with-errors">
+              {{ form_errors(edit_form.paymentType) }}
+          </div>
+        </div>
+
+<ul class="nav nav-tabs">
+  <li id="ingress-switch" class="type{% if type == "ingress" %} active{% endif %}"><a href="#">Ingreso</a></li>
+  <li id="egress-switch" class="type{% if type == "egress" %} active{% endif %}"><a href="#">Egreso</a></li>
+</ul>
+
+<div id="ammount" class="form-group{% if edit_form.ammount.vars.errors|length > 0 %} has-error{% endif %}{% if type == "ingress" %} hide{% endif %}">
+  {{ form_label(edit_form.ammount) }}
+  {{ form_widget(edit_form.ammount) }}
+  <div class="help-block with-errors">
+      {{ form_errors(edit_form.ammount) }}
+  </div>
+</div>
+
+<div id="ingress" class="{% if type == "egress" %} hide{% endif %}">
+        <div class="form-group{% if edit_form.ingress.vars.errors|length > 0 %} has-error{% endif %}">
+          {{ form_label(edit_form.ingress) }}
+          {{ form_widget(edit_form.ingress) }}
+          <div class="help-block with-errors">
+              {{ form_errors(edit_form.ingress) }}
+          </div>
+        </div>        
+</div>
+<div id="egress" class="{% if type == "ingress" %} hide{% endif %}">
+        <div class="form-group{% if edit_form.provider.vars.errors|length > 0 %} has-error{% endif %}">
+          {{ form_label(edit_form.provider) }}
+          {{ form_widget(edit_form.provider) }}
+          <div class="help-block with-errors">
+              {{ form_errors(edit_form.provider) }}
+          </div>
+        </div>
+        <div class="form-group{% if edit_form.egress.vars.errors|length > 0 %} has-error{% endif %}">
+          {{ form_label(edit_form.egress) }}
+          {{ form_widget(edit_form.egress) }}
+          <div class="help-block with-errors">
+              {{ form_errors(edit_form.egress) }}
+          </div>
+        </div>
+</div>
+
+
+
+
+        {{ form_widget(edit_form) }}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-body">
+                        <a class="btn btn-default" href="{{ path('cash_index') }}"><span class="glyphicon glyphicon-chevron-left"></span> Volver</a>
+                        <button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {{ form_end(edit_form) }}
+  </div>
+</div>    
+{% endblock %}

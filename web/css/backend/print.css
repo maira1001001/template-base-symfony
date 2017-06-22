@@ -1,0 +1,21 @@
+th{
+	text-align: left;
+	vertical-align: top;
+	min-width: 230px;
+}
+
+.smallest{
+	min-width: 10px;
+}
+
+#ticket-header{
+	text-align: right;
+	margin-bottom: 4em;
+}
+
+.logo{
+	position: absolute;
+	top: 0px;
+	margin: 1.5em;
+	margin-top: 0px;
+}

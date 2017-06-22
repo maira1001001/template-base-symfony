@@ -1,0 +1,51 @@
+{% extends 'backend/table.html.twig' %}
+
+{% set new = 
+    {
+        "route": "egress_new",
+        "title": "Nuevo egreso"
+    }
+%}
+
+
+{% block thead %}
+    <tr>
+        <th>Nombre</th>
+        <th>Accion</th>
+    </tr>
+{% endblock %}
+{% block tfoot %}
+    <tr>
+        <th>Nombre</th>
+        <th>Accion</th>
+    </tr>
+{% endblock %}
+{% block tbody %}
+    {% for egress in egresses %}
+        <tr>
+            <td>{{ egress.name }}</td>
+            <td>
+                <a href="{{ path('egress_show', { 'id': egress.id }) }}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                <a href="{{ path('egress_edit', { 'id': egress.id }) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block section %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Egresos
+      <small>Listado</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li class="active">Egresos</li>
+    </ol>
+  </section>
+  {{parent()}}
+</div>     
+{% endblock %}

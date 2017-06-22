@@ -1,0 +1,16 @@
+parameters:
+  media:
+      media: "media"
+      file: "files"
+      avatar: "avatars"
+  
+  avatar:
+    width:  400
+    height: 400
+
+  security:
+      roles_available:
+          - ROLE_ADMIN
+          - ROLE_OPERATOR
+          - ROLE_VISITOR    
+     

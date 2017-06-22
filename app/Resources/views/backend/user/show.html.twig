@@ -1,0 +1,84 @@
+{% extends 'backend/base.html.twig' %}
+
+{% block section %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Usuario
+      <small>Detallado</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li class="active">Usuario</li>
+    </ol>
+  </section>
+  <div class="content">
+    <table>
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ user.name }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ user.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Correo electronico</th>
+                <td>{{ user.email }}</td>
+            </tr>              
+            <tr>
+                <th>Telefono 1</th>
+                <td>{{ user.phone1 }}</td>
+            </tr>      
+            <tr>
+                <th>Telefono 2</th>
+                <td>{{ user.phone2 }}</td>
+            </tr>                 
+            <tr>
+                <th>Direccion</th>
+                <td>{{ user.adress }}</td>
+            </tr>                 
+            <tr>
+                <th>DNI</th>
+                <td>{{ user.dni }}</td>
+            </tr>              
+            <tr>
+                <th>Avatar</th>
+                <td><img src="{{asset('media/avatars/' ~ user.avatar)}}"></td>
+            </tr>
+            <tr>
+                <th>Registrado</th>
+                <td>{{ user.registeredAt | date('d/m/Y H:i') }}</td>
+            </tr>
+            <tr>
+                <th>Sexo</th>
+                <td>
+                {% if user.gender == 'Female' %}
+                    Mujer
+                {% else %}
+                    Hombre
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ user.observations }}</td>
+            </tr>            
+        </tbody>
+    </table>
+    </div>
+    <div class="box-footer">
+        <a class="btn btn-default" href="{{ path('user_index') }}"><span class="glyphicon glyphicon-chevron-left"></span> Volver</a>
+        <a class="btn btn-primary" href="{{ path('user_edit', { 'id': user.id }) }}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ form_start(delete_form) }}
+            <button type="submit" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
+            {{ form_end(delete_form) }}
+        {% endif %}
+    </div>
+</div>     
+{% endblock %}

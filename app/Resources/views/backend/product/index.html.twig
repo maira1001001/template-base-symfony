@@ -1,0 +1,60 @@
+{% extends 'backend/table.html.twig' %}
+
+{% set new = 
+    {
+        "route": "product_new",
+        "title": "Nuevo producto"
+    }
+%}
+
+
+{% block thead %}
+    <tr>
+        <th>Familia</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+{% block tfoot %}
+    <tr>
+        <th>Familia</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+{% block tbody %}
+    {% for product in products %}
+        <tr>
+            <td>{{ product.family.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+                <a href="{{ path('product_show', { 'id': product.id }) }}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                <a href="{{ path('product_edit', { 'id': product.id }) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block section %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Producto
+      <small>Listado</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li class="active">Producto</li>
+    </ol>
+  </section>
+  {{parent()}}
+</div>     
+{% endblock %}

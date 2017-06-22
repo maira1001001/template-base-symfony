@@ -1,0 +1,200 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block body %}
+
+
+
+
+
+
+
+	<!-- BEGIN # MODAL LOGIN -->
+	<div class="modal show" id="login-modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					Formulario de Registro
+				</div>
+                
+                <!-- Begin # DIV Form -->
+                <div id="div-forms">
+				                
+				    {{form_start(form, {'method': 'POST', 'attr':{'class': 'register'}})}}
+
+						<div class="form-group"{% if form.name.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.name) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									{{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.name) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.lastname.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.lastname) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+									{{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.lastname) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.email.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.email) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									{{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.email) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.gender.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.gender) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									{{ form_widget(form.gender, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.gender) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.avatar.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.avatar) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									{{ form_widget(form.avatar, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.avatar) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.username.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.username) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									{{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.username) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+                               
+						<div class="form-group"{% if form.plainPassword.first.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.plainPassword.first) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									{{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.plainPassword.first) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.plainPassword.second.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.plainPassword.second) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									{{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.plainPassword.second) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.dni.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.dni) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									{{ form_widget(form.dni, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.dni) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.phone1.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.phone1) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-phone" aria-hidden="true"></i></span>
+									{{ form_widget(form.phone1, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.phone1) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.phone2.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.phone2) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i></span>
+									{{ form_widget(form.phone2, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.phone2) }}
+							        </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group"{% if form.adress.vars.errors|length > 0 %} has-error{% endif %}>
+							<label for="name" class="cols-sm-2 control-label">{{ form_label(form.adress) }}</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-globe" aria-hidden="true"></i></span>
+									{{ form_widget(form.adress, { 'attr': {'class': 'form-control'} }) }}
+							        <div class="help-block with-errors">
+							            {{ form_errors(form.adress) }}
+							        </div>
+								</div>
+							</div>
+						</div>						
+
+				    <div class="row">
+				        <div class="col-xs-8">
+				            <a href="{{ path('fos_user_security_login') }}">Ya tengo cuenta</a><br>
+				        </div>
+				        <div class="col-xs-4">
+				            <button type="submit" class="btn btn-primary btn-block btn-flat">Registrarse</button>
+				        </div>
+				    </div>
+				    {{ form_end(form) }}
+                    
+                </div>
+                <!-- End # DIV Form -->
+                
+			</div>
+		</div>
+	</div>
+    <!-- END # MODAL LOGIN -->
+
+
+
+{% endblock body %}

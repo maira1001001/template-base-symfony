@@ -1,0 +1,173 @@
+{% extends 'backend/table.html.twig' %}
+
+{% set new = 
+    {
+        "route": "cash_new",
+        "route_options": {"type": "ingress"},
+        "title": "Nuevo"
+    }
+%}
+
+{% block stylesheets %}
+  {{parent()}}
+  <link rel="stylesheet" href="{{ app.request.basepath }}/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" href="{{ app.request.basepath }}/css/backend/cash.css">
+{% endblock %}
+
+{% block javascripts %}
+  {{parent()}}
+  <script src="{{ app.request.basepath }}/lib/moment.js/moment-with-locales.js"></script>
+  <script src="{{ app.request.basepath }}/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+  <script src="{{ app.request.basepath }}/js/backend/cash.js"></script>
+{% endblock %}
+
+{% block thead %}
+    <tr>
+        <th>Fecha</th>
+        <th>Monto</th>
+        <th>Tipo de pago</th>
+        <th>Ingreso / Egreso</th>
+        <th>Acciones</th>
+    </tr>
+{% endblock %}
+{% block tfoot %}
+    <tr>
+        <th>Fecha</th>
+        <th>Monto</th>
+        <th>Tipo de pago</th>
+        <th>Ingreso / Egreso</th>
+        <th>Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block tbody %}
+    {% set cashTotal = 0 %}
+    {% set cardTotal = 0 %}
+    {% set checkTotal = 0 %}
+
+    {% for cash in cashes %}
+        <tr>
+            <td>{{ cash.datetime | date("d/m/Y H:i:s") }}</td>
+            {% set total = 0 %}   
+            {% for i in cash.items %}
+                {% set total = total + (i.quantity * i.product.price) %}
+            {% endfor %}
+            {% if cash.paymentType == "Efectivo" %}
+                {% set cashTotal = cashTotal + total %}
+            {% endif %}
+            {% if cash.paymentType == "Tarjeta" %}
+                {% set cardTotal = cardTotal + total %}
+            {% endif %}
+            {% if cash.paymentType == "Cheque" %}
+                {% set checkTotal = checkTotal + total %}
+            {% endif %}                        
+            <td>$ {{ total }}</td>
+            <td>{{ cash.paymentType }}</td>
+            <td>
+            {% if cash.ingress %}
+                <span class="ingress-text glyphicon glyphicon-plus"> Ingreso: {{ cash.ingress.name }}</span>
+            {% endif %}
+            {% if cash.egress %}
+                <span class="egress-text glyphicon glyphicon-minus"> Egreso: {{cash.egress.name}}</span>
+                {% if cash.provider %}
+                    <a href="{{ path('provider_show', { 'id': cash.provider.id }) }}">Proveedor: {{ cash.provider.name }}</a>
+                {% endif %}
+            {% endif %}
+            </td>
+            <td>
+                <a href="{{ path('cash_show', { 'id': cash.id }) }}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                <a href="{{ path('cash_edit', { 'id': cash.id }) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            </td>
+        </tr>
+    {% endfor %}
+
+        <tr>
+            <td><b>Total Efectivo</b></td>
+            <td><b>Total Tarjeta<b></td>
+            <td><b>Total Cheque</b></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>$ {{cashTotal}}</td>
+            <td>$ {{cardTotal}}</td>
+            <td>$ {{checkTotal}}</td>
+            <td></td>
+            <td></td>
+        </tr>        
+{% endblock %}
+
+{% block section %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Caja
+          <small>Listado</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+          <li class="active">Caja</li>
+        </ol>
+        </section>
+
+        <div class="content">
+            <form method="post" action="{{ path('cash_index') }}">     
+                <div class="form-group">
+                    Fecha de inicio
+                    <div class="input-group date">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        <input id="startTime" type="text" class="form-control" name="startTime" value="{{startTime}}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Fecha de cierre
+                    <div class="input-group date">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        <input id="endTime" type="text" class="form-control" name="endTime" value="{{endTime}}">
+                    </div>   
+                </div>
+
+                <div class="form-group">
+                    Tipo de Ingreso
+                    <select id="ingressType" name="ingressType" class="form-control">
+                        <option value="">-</option>
+                        {% for i in ingressType %}
+                            <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    Tipo de Egreso
+                    <select id="egressType" name="egressType" class="form-control">
+                        <option value="">-</option>
+                        {% for e in egressType %}
+                            <option value="{{e.id}}">{{e.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    Tipo de Pago
+                    <select id="paymentType" name="paymentType" class="form-control">
+                        <option value="">-</option>
+                        {% for p in paymentType %}
+                            <option value="{{p.id}}">{{p.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-refresh"></span> Consultar</button>      
+            </form>  
+            
+            {{parent()}}
+        </div>
+    </div>
+{% endblock %}

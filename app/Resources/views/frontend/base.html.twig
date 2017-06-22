@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{{generals_helper.name}}{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ app.request.basepath }}/lib/bootstrap-datatables/dataTables.bootstrap.css">
+            <link rel="stylesheet" href="{{ app.request.basepath }}/css/backend/DataTable.css">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ app.request.basepath }}/css/frontend/base.css">
+        <!-- Bootstrap 3.3.6 -->
+        <link rel="stylesheet" href="{{ app.request.basepath }}/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">      
+        <link rel="stylesheet" href="{{ app.request.basepath }}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">    
+    </head>
+    <body style="background-image: url({{asset('media/' ~ 'wallpaper.jpeg')}})">
+        {% block body %}
+
+            <!-- BEGIN # BOOTSNIP INFO -->
+            <div class="container">
+                <div class="row">
+                    <h1 class="text-center"><font color="white">{{generals_helper.name}}</font></h1>
+
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <div id="acc_info">
+                            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                            {% if 'ROLE_ADMIN' in app.user.roles or 'ROLE_OPERATOR' in app.user.roles %}
+                                | <a href="{{ path('admin') }}">Panel de Control</a>
+                            {% endif %}
+                            |
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        </div>
+
+
+
+                        <!-- BEGIN # MODAL LOGIN -->
+                        <div class="modal show" id="login-modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" align="center">
+                                        Mis Compras
+                                    </div>
+                                    
+                                    <!-- Begin # DIV Form -->
+                                    <div id="div-forms">
+                                        <div class="row">        
+                                            <div class="col-xs-12">
+                                                {% if cashes %}
+                                                    <div class="box">
+                                                        <div class="box-body">
+                                                            <div class="dataTables_wrapper form-inline dt-bootstrap">
+                                                                <table id="table" class="table {% block classTable %} dataTable {% endblock %} table-bordered table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Ticket</th>
+                                                                            <th>Fecha</th>
+                                                                            <th>Entrega</th>
+                                                                            <th>Estado</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {% for c in cashes %}
+                                                                            <tr>
+                                                                                <th>{{c.id}}</th>
+                                                                                <th>{{c.datetime|date("d/m/Y H:i")}}</th>
+                                                                                <th>{{c.promised|date("d/m/Y H:i")}}</th>
+                                                                                {% if c.state.id == 1 %}
+                                                                                    <th class="sinatender"><span class="glyphicon glyphicon-fire">
+                                                                                {% endif %}
+                                                                                {% if c.state.id == 2 %}
+                                                                                    <th class="trabajando"><span class="glyphicon glyphicon-time">
+                                                                                {% endif %}
+                                                                                {% if c.state.id == 3 %}
+                                                                                    <th class="terminado"><span class="glyphicon glyphicon-star-empty">
+                                                                                {% endif %}
+                                                                                {{c.state}}</span>
+                                                                                </th>
+                                                                            </tr>
+                                                                        {% endfor %}                           
+                                                                    </tbody>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <th>Ticket</th>
+                                                                            <th>Fecha</th>
+                                                                            <th>Entrega</th>
+                                                                            <th>Estado</th>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% else %}
+                                                    Por el momento, no tenes compras
+                                                {% endif %}
+                                            </div>
+                                        </div>      
+                                       
+                                    </div>
+                                    <!-- End # DIV Form -->
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END # MODAL LOGIN -->
+
+
+
+                    {% else %}
+                        <p class="text-center"><a href="{{ path('fos_user_security_login') }}" class="btn btn-default btn-lg">IDENTIFICARSE</a></p>
+                        <!--<p class="text-center"><a href="{{ path('fos_user_registration_register') }}" class="btn btn-default btn-lg">REGISTRARSE&nbsp;&nbsp;</a></p>-->
+                    {% endif %}
+
+                </div>
+            </div>
+            <!-- END # BOOTSNIP INFO -->
+
+
+            {% if app.request.hasPreviousSession %}
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="flash-{{ type }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+
+        {% endblock %}
+
+
+        {% block javascripts %}
+            <!-- jQuery 2.2.3 -->
+            <script src="{{ app.request.basepath }}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+            <!-- jQuery UI 1.11.4 -->
+            <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+            <!-- Bootstrap 3.3.6 -->
+            <script src="{{ app.request.basepath }}/bootstrap/js/bootstrap.min.js"></script>
+            <!-- Bootstrap WYSIHTML5 -->
+            <script src="{{ app.request.basepath }}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+            
+        {% endblock %}
+    </body>
+</html>

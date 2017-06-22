@@ -1,0 +1,36 @@
+body{
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+.modal {
+	position: relative!important;
+}
+
+.modal-content{
+	padding: 10px;
+}
+
+#acc_info{
+	position: absolute;
+	top:10px;
+	right: 20px;
+}
+
+.sinatender{
+	background-color: #DD4B39 !important;
+}
+
+.trabajando{
+	background-color: #F39C12 !important;
+}
+
+.terminado{
+	background-color: #00A65A !important;
+}
+
+.form-control{
+	width: 95%!important;
+}

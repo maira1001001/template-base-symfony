@@ -1,0 +1,62 @@
+{% extends 'backend/table.html.twig' %}
+
+{% block stylesheets %}
+  {{parent()}}
+  <link rel="stylesheet" href="{{ app.request.basepath }}/css/backend/user.css">
+{% endblock %}
+
+{% set new = 
+    {
+        "route": "user_new",
+        "title": "Nuevo usuario"
+    }
+%}
+
+
+{% block thead %}
+    <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+{% block tfoot %}
+    <tr>
+        <th>Avatar</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+{% block tbody %}
+    {% for user in users %}
+        <tr>
+            <td><div class="avatar" style="background-image: url('{{asset('media/avatars/' ~ user.avatar)}}');"></td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>
+                <a href="{{ path('user_show', { 'id': user.id }) }}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                <a href="{{ path('user_edit', { 'id': user.id }) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block section %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Usuario
+          <small>Listado</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+          <li class="active">Usuario</li>
+        </ol>
+      </section>
+    {{parent()}}
+    </div>   
+{% endblock %}

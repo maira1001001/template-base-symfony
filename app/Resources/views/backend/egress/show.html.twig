@@ -1,0 +1,35 @@
+{% extends 'backend/base.html.twig' %}
+
+{% block section %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Egresos
+      <small>Detallado</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li class="active">Egresos</li>
+    </ol>
+  </section>
+    <div class="content">
+    <table>
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ egress.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="box-footer">
+        <a class="btn btn-default" href="{{ path('egress_index') }}"><span class="glyphicon glyphicon-chevron-left"></span> Volver</a>
+        <a class="btn btn-primary" href="{{ path('egress_edit', { 'id': egress.id }) }}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+        {{ form_start(delete_form) }}
+        <button type="submit" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
+        {{ form_end(delete_form) }}
+    </div>
+</div>     
+{% endblock %}

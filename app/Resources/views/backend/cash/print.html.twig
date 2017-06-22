@@ -1,0 +1,163 @@
+{% set no_new_button = true %}
+
+{% set print = true %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ app.request.basepath }}/lib/bootstrap-datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/backend/DataTable.css">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/backend/print.css">
+{% endblock %}
+
+{% block section %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div id="ticket-header">
+        Ticket N° {{cash.id}}
+        &nbsp;
+        {{ cash.datetime | date("d/m/Y H:i:s") }}
+    </div>  
+    <div class="logo">
+        <h1>
+          {{generals_helper.name}}
+        </h1>
+    </div>
+  </section>
+    <div class="content">
+    <table>
+        <tbody>              
+            <tr>
+                <th>Tipo de pago</th>
+                <td>{{ cash.paymentType }}</td>
+            </tr>
+            {% if cash.ingress %}
+            <tr>
+                <th>Ingreso</th>
+                <td>{{ cash.ingress }}</td>
+            </tr>
+            {% endif %}     
+            {% if cash.egress %}
+            <tr>
+                <th>Egreso</th>
+                <td>{{ cash.egress }}</td>
+            </tr>            
+            {% endif %}
+            {% if cash.provider %}
+            <tr>
+                <th>Proveedor</th>
+                <td>{{ cash.provider.name }}</td>
+            </tr>               
+            {% endif %}
+            <tr>
+                <th>Comentarios</th>
+                <td>{{ cash.comments }}</td>
+            </tr>
+            {% if cash.ingress %}
+            <tr>
+                <td colspan="2"><b>Productos</b>
+                    <table id="product-list" border="0">
+                    <tr>
+                        <th>                
+                            Nombre
+                        </th>
+                        <th>
+                            Precio
+                        </th>
+                        <th>
+                            Cantidad
+                        </th>
+                        <th>
+                            Total
+                        </th>       
+                    </tr>                 
+                    {% set total = 0 %}   
+                    {% for i in cash.items %}
+                        {% set total = total + (i.quantity * i.product.price) %}
+                        <tr>
+                            <td>                
+                                {{i.product.name}}
+                            </td>
+                            <td>
+                                $ {{i.product.price}}
+                            </td>
+                            <td>
+                                <input class="product-quantity" type="number" value="{{i.quantity}}" onchange="changeItemQuantity(this, {{i.id}});">
+                            </td>
+                            <td>
+                                $ {{ i.quantity * i.product.price }}
+                            </td>       
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th>                
+                            &nbsp;
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>                      
+                        <th>
+                            Total: $ {{total}}
+                        </th>            
+                    </tr>                      
+                    </table>
+                </td>
+            </tr>
+            {% endif %}            
+        </tbody>
+    </table>
+    
+
+
+
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                {% if no_new_button is defined %}
+                    {% block new_block %}{% endblock %}
+                {% else %}
+                    <div class="box-body">
+                        <a class="btn btn-success btn-flat" href="{% if new.route_options is defined %}{{ path(new.route, new.route_options) }}{% else %}{{ path(new.route) }}{% endif %}"><span class="glyphicon glyphicon-plus"></span> {{ new.title }}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+    <div class="box-footer">
+
+    </div>
+</div>    
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        window.print();
+    </script>
+{% endblock %}

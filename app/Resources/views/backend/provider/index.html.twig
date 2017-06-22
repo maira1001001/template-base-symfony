@@ -1,0 +1,51 @@
+{% extends 'backend/table.html.twig' %}
+
+{% set new = 
+    {
+        "route": "provider_new",
+        "title": "Nuevo proveedor"
+    }
+%}
+
+
+{% block thead %}
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+{% block tfoot %}
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+{% endblock %}
+{% block tbody %}
+    {% for provider in providers %}
+        <tr>
+            <td>{{ provider.name }}</td>
+            <td>
+                <a href="{{ path('provider_show', { 'id': provider.id }) }}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                <a href="{{ path('provider_edit', { 'id': provider.id }) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block section %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Proveedor
+          <small>Listado</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+          <li class="active">Proveedor</li>
+        </ol>
+      </section>
+      {{parent()}}
+    </div>     
+{% endblock %}

@@ -1,0 +1,61 @@
+label{
+	width: 100%;
+}
+
+.hidden{
+	display: none;
+}
+
+.content{
+	margin-left: 1em;
+}
+
+input{
+	/*margin-left: 1em;
+	width: 70%;*/
+}
+
+.btn-danger{
+	position: relative;
+	top: -33px;
+}
+
+th{
+	vertical-align: top;
+	padding: 5px;
+}
+
+
+.box{
+	margin-top: 1em;
+}
+
+.box-footer{
+	margin-top: 1em;
+}
+
+.form-control{
+	width: 95%!important;
+}
+
+.chosen-single{
+	background: none!important;
+	border: none!important;
+	border-radius: none!important;
+	box-shadow:none!important;
+}
+
+#general-name{
+	width: 100%;
+	position: absolute;
+	color: #FFF;
+	font-size: 2em;
+}
+
+.file{
+	min-height: 200px;
+	min-width: 200px;
+	background: no-repeat;
+	background-position: 50% 50%;
+	background-size: 100%;
+}

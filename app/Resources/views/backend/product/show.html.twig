@@ -1,0 +1,55 @@
+{% extends 'backend/base.html.twig' %}
+
+{% block section %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Producto
+      <small>Detallado</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ path('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li class="active">Producto</li>
+    </ol>
+  </section>
+  <div class="content">
+    <table>
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ product.name }}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ product.price }}</td>
+            </tr>            
+            <tr>
+                <th>Stock</th>
+                <td>{{ product.stock }}</td>
+            </tr>
+            <tr>
+                <th>Costo</th>
+                <td>{{ product.cost }}</td>
+            </tr>
+            <tr>
+                <th>Codigo de barras</th>
+                <td>{{ product.codebar }}</td>
+            </tr>    
+            <tr>
+                <th>Imagen</th>
+                <td><a href="{{ file_asset(product.path) }}" target="_blank"><div class="file" style="background-image:url('{{ file_asset(product.path) }}')!important;"></div></a></td>
+            </tr>                                    
+        </tbody>
+    </table>
+    </div>
+    <div class="box-footer">
+        <a class="btn btn-default" href="{{ path('product_index') }}"><span class="glyphicon glyphicon-chevron-left"></span> Volver</a>
+        <a class="btn btn-primary" href="{{ path('product_edit', { 'id': product.id }) }}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+        {{ form_start(delete_form) }}
+        <button type="submit" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
+        {{ form_end(delete_form) }}
+    </div>
+</div>     
+{% endblock %}
